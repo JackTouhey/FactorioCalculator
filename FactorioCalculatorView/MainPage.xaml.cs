@@ -8,6 +8,12 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	private void InputItemSelected(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e){
+		Label SelectedItem = new Label();
+		SelectedItem.Text = InputComboBox.SelectedValue.ToString();
+		InputItems.Add(SelectedItem);
+	}
 }
 
 public class Item
@@ -17,17 +23,11 @@ public class Item
     public Item(String name){
         this.Name = name;
     }
-    
 }
-///<summary>
-///ComboBoxFeatures ViewModel class
-///</summary>
+
 public class ItemViewModels
 {
     public ObservableCollection<Item> ItemList { get; set; }
-    ///<summary>
-    ///ComboBoxFeatures ViewModel class constructor
-    ///</summary>
     public ItemViewModels()
     {
         this.ItemList = new ObservableCollection<Item>();

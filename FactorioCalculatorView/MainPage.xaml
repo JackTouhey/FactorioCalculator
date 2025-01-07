@@ -39,7 +39,7 @@
                 <VerticalStackLayout x:Name="InputItems">
                     <!-- <Button  Clicked="OnInputClicked" Text="+ Add Item"></Button> -->
 
-                    <editors:SfComboBox IsClearButtonVisible="True" IsEditable="True" IsDropdownButtonVisible="True" IsDropDownOpen="True" TextSearchMode="StartsWith"  HeightRequest="50" VerticalOptions="Center" WidthRequest="200" ItemsSource="{Binding ItemList}" DisplayMemberPath="Name">
+                    <editors:SfComboBox x:Name="InputComboBox" SelectionChanged ="InputItemSelected" SelectedValuePath="Name" IsClearButtonVisible="True" IsEditable="True" IsDropdownButtonVisible="True" IsDropDownOpen="True" TextSearchMode="StartsWith"  HeightRequest="50" VerticalOptions="Center" WidthRequest="200" ItemsSource="{Binding ItemList}" DisplayMemberPath="Name">
                     </editors:SfComboBox>
                     
                 </VerticalStackLayout>
