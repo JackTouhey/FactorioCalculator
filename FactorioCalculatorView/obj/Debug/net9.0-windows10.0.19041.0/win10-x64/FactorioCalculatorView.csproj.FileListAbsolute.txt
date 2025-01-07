@@ -470,3 +470,12 @@ C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculator
 C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\qualifiers.txt.intermediate
 C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
 C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\FactorioCalculatorView.sourcelink.json
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\MauiMaterialAssets.ttf
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Syncfusion.Licensing.dll
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Syncfusion.Maui.Core.dll
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Syncfusion.Maui.DataSource.dll
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Syncfusion.Maui.GridCommon.dll
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Syncfusion.Maui.Inputs.dll
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\Syncfusion.Maui.ListView.dll
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\en-US\Syncfusion.Maui.Inputs.resources.dll
+C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\FactorioCalculatorView\obj\Debug\net9.0-windows10.0.19041.0\win10-x64\resizetizer\f\MauiMaterialAssets.ttf

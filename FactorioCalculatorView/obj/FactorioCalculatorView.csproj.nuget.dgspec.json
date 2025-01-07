@@ -74,6 +74,14 @@
               "target": "Package",
               "version": "[9.0.0, )",
               "autoReferenced": true
+            },
+            "Syncfusion.Maui.Core": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Syncfusion.Maui.Inputs": {
+              "target": "Package",
+              "version": "[*, )"
             }
           },
           "imports": [
@@ -113,6 +121,14 @@
               "target": "Package",
               "version": "[9.0.0, )",
               "autoReferenced": true
+            },
+            "Syncfusion.Maui.Core": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Syncfusion.Maui.Inputs": {
+              "target": "Package",
+              "version": "[*, )"
             }
           },
           "imports": [
@@ -152,6 +168,14 @@
               "target": "Package",
               "version": "[9.0.0, )",
               "autoReferenced": true
+            },
+            "Syncfusion.Maui.Core": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Syncfusion.Maui.Inputs": {
+              "target": "Package",
+              "version": "[*, )"
             }
           },
           "imports": [
@@ -186,6 +210,14 @@
             "Microsoft.Maui.Controls": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Syncfusion.Maui.Core": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Syncfusion.Maui.Inputs": {
+              "target": "Package",
+              "version": "[*, )"
             }
           },
           "imports": [
