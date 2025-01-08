@@ -17,9 +17,11 @@
                 Padding ="30,0"
                 Spacing ="25"
                 HorizontalOptions="Center"
-                VerticalOptions="Center">
+                VerticalOptions="Center"
+                x:Name="CraftSpeedBanner">
                 <Label Text="Crafting Speed:"
-                    FontSize="30"/>
+                    FontSize="30"
+                    x:Name="CraftSpeedLabel"/>
                 <Entry x:Name="CraftSpeedInput"
                     Placeholder="Enter craft speed"></Entry>
             </HorizontalStackLayout>

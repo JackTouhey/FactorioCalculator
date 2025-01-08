@@ -5,6 +5,7 @@ public partial class MainPage : ContentPage
 {
 	private List<HorizontalStackLayout> InputRows = new();
 	private List<HorizontalStackLayout> OutputRows = new();
+	private Dictionary<HorizontalStackLayout, int> ItemQuantities = new();
 	public MainPage()
 	{
 		InitializeComponent();
@@ -92,9 +93,42 @@ public partial class MainPage : ContentPage
 			DisplayAlert("Alert", "Please Fill all text boxes to proceed", "OK");
 		}
 	}
-	private void FinalizeRecipe(){
 
+	private void FinalizeRecipe(){
+		RemoveQuantityEntries();
 	}
+	private void RemoveQuantityEntries(){
+		foreach(HorizontalStackLayout row in InputRows){
+			Label QuantityLabel = new Label();
+			Entry EntryToBeRemoved = new();
+			foreach(Element e in row.Children){
+				if(e.GetType() == typeof(Entry)){
+					Entry QuantityEntry = (Entry)e;
+					String ItemQuantity = QuantityEntry.Text;
+					QuantityLabel.Text = $"{ItemQuantity}";
+					EntryToBeRemoved = (Entry)e;
+				}
+			}
+			row.Add(QuantityLabel);
+			row.Remove(EntryToBeRemoved);
+		}
+		foreach(HorizontalStackLayout row in OutputRows){
+			Label QuantityLabel = new Label();
+			Entry EntryToBeRemoved = new();
+			foreach(Element e in row.Children){
+				if(e.GetType() == typeof(Entry)){
+					Entry QuantityEntry = (Entry)e;
+					String ItemQuantity = QuantityEntry.Text;
+					QuantityLabel.Text = $"{ItemQuantity}";
+					EntryToBeRemoved = (Entry)e;
+				}
+			}
+			row.Add(QuantityLabel);
+			row.Remove(EntryToBeRemoved);
+		}
+		
+	}
+	
 }
 
 public class Item
