@@ -37,16 +37,16 @@
                 Spacing ="400"
                 HorizontalOptions="Center">
                 <VerticalStackLayout x:Name="InputItems">
-                    <!-- <Button  Clicked="OnInputClicked" Text="+ Add Item"></Button> -->
-
                     <editors:SfComboBox x:Name="InputComboBox" SelectionChanged ="InputItemSelected" SelectedValuePath="Name" IsClearButtonVisible="True" IsEditable="True" IsDropdownButtonVisible="True" IsDropDownOpen="True" TextSearchMode="StartsWith"  HeightRequest="50" VerticalOptions="Center" WidthRequest="200" ItemsSource="{Binding ItemList}" DisplayMemberPath="Name">
-                    </editors:SfComboBox>
-                    
+                    </editors:SfComboBox>   
                 </VerticalStackLayout>
                 <VerticalStackLayout x:Name="OutputItems">
-                    <Button x:Name="AddOutput" Text="+ Add Item"></Button>
+                    <editors:SfComboBox x:Name="OutputComboBox" SelectionChanged ="OutputItemSelected" SelectedValuePath="Name" IsClearButtonVisible="True" IsEditable="True" IsDropdownButtonVisible="True" IsDropDownOpen="True" TextSearchMode="StartsWith"  HeightRequest="50" VerticalOptions="Center" WidthRequest="200" ItemsSource="{Binding ItemList}" DisplayMemberPath="Name">
+                    </editors:SfComboBox> 
                 </VerticalStackLayout>
+            
             </HorizontalStackLayout>
+            <Button x:Name="CompleteRecipte" Text="Complete Recipe"></Button>
         </VerticalStackLayout>
     </ScrollView>
 

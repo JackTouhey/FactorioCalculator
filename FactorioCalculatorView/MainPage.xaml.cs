@@ -10,16 +10,43 @@ public partial class MainPage : ContentPage
 	}
 
 	private void InputItemSelected(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e){
-		Label SelectedItem = new Label();
-		SelectedItem.Text = InputComboBox.SelectedValue.ToString();
-		InputItems.Add(SelectedItem);
+		if(InputComboBox.SelectedValue != null){
+			String itemName = InputComboBox.SelectedValue.ToString();
+			Label SelectedItem = new Label{VerticalTextAlignment = TextAlignment.Center};
+			HorizontalStackLayout AddedItemLayout = new HorizontalStackLayout();
+			Entry NumberOfItem = new Entry{Placeholder = "Quantity"};
+			String imagePath = @"C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\Item Icons\";
+			imagePath = imagePath + itemName + ".png";
+			Image icon = new Image {Source = imagePath};
+			SelectedItem.Text = itemName;
+			AddedItemLayout.Add(NumberOfItem);
+			AddedItemLayout.Add(icon);
+			AddedItemLayout.Add(SelectedItem);
+			InputItems.Add(AddedItemLayout);
+		}
+	}
+	private void OutputItemSelected(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e){
+		if(OutputComboBox.SelectedValue != null){
+			String itemName = OutputComboBox.SelectedValue.ToString();
+			Label SelectedItem = new Label{VerticalTextAlignment = TextAlignment.Center};
+			HorizontalStackLayout AddedItemLayout = new HorizontalStackLayout();
+			Entry NumberOfItem = new Entry{Placeholder = "Quantity"};
+			String imagePath = @"C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\Item Icons\";
+			imagePath = imagePath + itemName + ".png";
+			Image icon = new Image {Source = imagePath};
+			SelectedItem.Text = itemName;
+			AddedItemLayout.Add(NumberOfItem);
+			AddedItemLayout.Add(icon);
+			AddedItemLayout.Add(SelectedItem);
+			OutputItems.Add(AddedItemLayout);
+		}
 	}
 }
 
 public class Item
 {
     public string? Name { get; set; }
-
+	
     public Item(String name){
         this.Name = name;
     }
@@ -179,6 +206,7 @@ public class ItemViewModels
 		this.ItemList.Add(new Item("Coal"));
 		this.ItemList.Add(new Item("Stone"));
 		this.ItemList.Add(new Item("Iron_ore"));
+		this.ItemList.Add(new Item("Iron_plate"));
 		this.ItemList.Add(new Item("Copper_ore"));
 		this.ItemList.Add(new Item("Uranium_ore"));
 		this.ItemList.Add(new Item("Raw_fish"));
