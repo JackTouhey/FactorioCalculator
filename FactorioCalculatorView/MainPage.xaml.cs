@@ -3,7 +3,8 @@ using System.Collections.ObjectModel;
 
 public partial class MainPage : ContentPage
 {
-
+	private List<HorizontalStackLayout> InputRows = new();
+	private List<HorizontalStackLayout> OutputRows = new();
 	public MainPage()
 	{
 		InitializeComponent();
@@ -22,6 +23,7 @@ public partial class MainPage : ContentPage
 			AddedItemLayout.Add(NumberOfItem);
 			AddedItemLayout.Add(icon);
 			AddedItemLayout.Add(SelectedItem);
+			InputRows.Add(AddedItemLayout);
 			InputItems.Add(AddedItemLayout);
 		}
 	}
@@ -38,8 +40,60 @@ public partial class MainPage : ContentPage
 			AddedItemLayout.Add(NumberOfItem);
 			AddedItemLayout.Add(icon);
 			AddedItemLayout.Add(SelectedItem);
+			OutputRows.Add(AddedItemLayout);
 			OutputItems.Add(AddedItemLayout);
 		}
+	}
+	private List<Entry> getInputEntries(){
+		List<Entry> InputEntries = new();
+		foreach(HorizontalStackLayout row in InputRows){
+			foreach(Element e in row.Children){
+				if(e.GetType() == typeof(Entry)){
+					InputEntries.Add((Entry)e);
+				}
+			}
+		}
+		return InputEntries;
+	}
+	private List<Entry> getOutputEntries(){
+		List<Entry> OutputEntries = new();
+		foreach(HorizontalStackLayout row in OutputRows){
+			foreach(Element e in row.Children){
+				if(e.GetType() == typeof(Entry)){
+					OutputEntries.Add((Entry)e);
+				}
+			}
+		}
+		return OutputEntries;
+	}
+	private void CompleteRecipeClicked(object sender, EventArgs args){
+		Boolean allEntered = true;
+		if(CraftSpeedInput.Text == ""){
+			allEntered = false;
+		}
+		foreach(Entry e in getInputEntries()){
+			if(e != null){
+				if(e.Text == ""){
+					allEntered = false;
+				}
+			}
+		}
+		foreach(Entry e in getOutputEntries()){
+			if(e != null){
+				if(e.Text == ""){
+					allEntered = false;
+				}
+			}
+		}
+		if(allEntered){
+			FinalizeRecipe();
+		}
+		else{
+			DisplayAlert("Alert", "Please Fill all text boxes to proceed", "OK");
+		}
+	}
+	private void FinalizeRecipe(){
+
 	}
 }
 

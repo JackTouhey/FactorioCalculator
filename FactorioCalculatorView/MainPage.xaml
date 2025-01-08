@@ -46,7 +46,7 @@
                 </VerticalStackLayout>
             
             </HorizontalStackLayout>
-            <Button x:Name="CompleteRecipte" Text="Complete Recipe"></Button>
+            <Button x:Name="CompleteRecipe" Text="Complete Recipe" Clicked ="CompleteRecipeClicked"></Button>
         </VerticalStackLayout>
     </ScrollView>
 
