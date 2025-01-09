@@ -50,6 +50,7 @@
             
             </HorizontalStackLayout>
             <Button x:Name="CompleteRecipe" Text="Complete Recipe" Clicked ="CompleteRecipeClicked"></Button>
+            <Button x:Name="Reset" Text="Reset" Clicked ="ResetButton"></Button>
         </VerticalStackLayout>
     </ScrollView>
 

@@ -69,6 +69,19 @@ public partial class MainPage : ContentPage
 		}
 		return OutputEntries;
 	}
+	private void ResetButton(object sender, EventArgs args){
+		InputItems.Children.Clear();
+		OutputItems.Children.Clear();
+		InputItems.Children.Add(InputComboBox);
+		OutputItems.Children.Add(OutputComboBox);
+		Boolean CompleteRecipePresent = false;
+		if(Root.Children.Contains(CompleteRecipe)){
+			CompleteRecipePresent = true;
+		}
+		if(CompleteRecipePresent == false){
+			Root.Children.Add(CompleteRecipe);
+		}
+	}
 	private void CompleteRecipeClicked(object sender, EventArgs args){
 		Boolean allEntered = true;
 		if(CraftSpeedInput.Text == ""){
@@ -133,13 +146,16 @@ public partial class MainPage : ContentPage
 		int VariableQuantity = ItemQuantities[ItemRowFromIPSEntry[SendingEntry]];
 		foreach(HorizontalStackLayout row in InputRows){
 			Entry EntryToBeRemoved = new();
-			Label ItemsPerSecondLabel = new Label();
+			Label ItemsPerSecondLabel = new Label{VerticalTextAlignment = TextAlignment.Center};
 			foreach(Element e in row.Children){
 				if(e.GetType() == typeof(Entry)){
 					EntryToBeRemoved = (Entry)e;
 				}
 			}
-			int OwnQuantity = ItemQuantities[row];
+			int OwnQuantity = 1;
+			if(ItemQuantities[row] != null){
+				OwnQuantity = ItemQuantities[row];
+			}
 			double ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
 			ItemsPerSecondLabel.Text = $"Items Per Second: {ItemsPerSecond}";
 			row.Children.Remove(EntryToBeRemoved);
@@ -147,13 +163,16 @@ public partial class MainPage : ContentPage
 		}
 		foreach(HorizontalStackLayout row in OutputRows){
 			Entry EntryToBeRemoved = new();
-			Label ItemsPerSecondLabel = new Label();
+			Label ItemsPerSecondLabel = new Label{VerticalTextAlignment = TextAlignment.Center};
 			foreach(Element e in row.Children){
 				if(e.GetType() == typeof(Entry)){
 					EntryToBeRemoved = (Entry)e;
 				}
 			}
-			int OwnQuantity = ItemQuantities[row];
+			int OwnQuantity = 1;
+			if(ItemQuantities[row] != null){
+				OwnQuantity = ItemQuantities[row];
+			}
 			double ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
 			ItemsPerSecondLabel.Text = $"Items Per Second: {ItemsPerSecond}";
 			row.Children.Remove(EntryToBeRemoved);
@@ -162,7 +181,7 @@ public partial class MainPage : ContentPage
     }
 	private void RemoveQuantityEntries(){
 		foreach(HorizontalStackLayout row in InputRows){
-			Label QuantityLabel = new Label();
+			Label QuantityLabel = new Label{VerticalTextAlignment = TextAlignment.Center};
 			Entry EntryToBeRemoved = new();
 			foreach(Element e in row.Children){
 				if(e.GetType() == typeof(Entry)){
@@ -183,7 +202,7 @@ public partial class MainPage : ContentPage
 			row.Remove(EntryToBeRemoved);
 		}
 		foreach(HorizontalStackLayout row in OutputRows){
-			Label QuantityLabel = new Label();
+			Label QuantityLabel = new Label{VerticalTextAlignment = TextAlignment.Center};
 			Entry EntryToBeRemoved = new();
 			foreach(Element e in row.Children){
 				if(e.GetType() == typeof(Entry)){
