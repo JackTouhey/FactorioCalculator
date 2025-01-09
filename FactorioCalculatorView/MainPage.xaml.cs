@@ -1,13 +1,15 @@
 ﻿namespace FactorioCalculatorView;
 using System.Collections.ObjectModel;
+using System;
+using System.Diagnostics;
 
 public partial class MainPage : ContentPage
 {
 	private List<HorizontalStackLayout> InputRows = new();
 	private List<HorizontalStackLayout> OutputRows = new();
-	private Dictionary<HorizontalStackLayout, int> ItemQuantities = new();
+	private Dictionary<HorizontalStackLayout, double> ItemQuantities = new();
 	private Dictionary<Entry, HorizontalStackLayout> ItemRowFromIPSEntry = new();
-	private int CraftSpeed = 1;
+	private double CraftSpeed = 1;
 	public MainPage()
 	{
 		InitializeComponent();
@@ -80,7 +82,7 @@ public partial class MainPage : ContentPage
 		}
 		if(CompleteRecipePresent == false){
 			Root.Children.Add(CompleteRecipe);
-		}
+		}		
 	}
 	private void CompleteRecipeClicked(object sender, EventArgs args){
 		Boolean allEntered = true;
@@ -111,10 +113,10 @@ public partial class MainPage : ContentPage
 
 	private void FinalizeRecipe(){
 		try{
-			CraftSpeed = int.Parse(CraftSpeedInput.Text);
+			CraftSpeed = double.Parse(CraftSpeedInput.Text);
 		}
 		catch{
-			DisplayAlert("Invalid Craft Speed", "Please use an Integer", "OK");
+			DisplayAlert("Invalid Craft Speed", "Please enter a valid craft speed", "OK");
 		}
 		RemoveQuantityEntries();
 		AddVariableEntries();
@@ -137,13 +139,13 @@ public partial class MainPage : ContentPage
     private void OnVariableEntryCompleted(object? sender, EventArgs eArgs)
     {
 		Entry SendingEntry = (Entry)sender;
-		int VariableItemsPerSecond = 0;
+		double VariableItemsPerSecond = 0;
         try{
-			VariableItemsPerSecond = int.Parse(SendingEntry.Text);
+			VariableItemsPerSecond = double.Parse(SendingEntry.Text);
 		}
 		catch{
 		}
-		int VariableQuantity = ItemQuantities[ItemRowFromIPSEntry[SendingEntry]];
+		double VariableQuantity = ItemQuantities[ItemRowFromIPSEntry[SendingEntry]];
 		foreach(HorizontalStackLayout row in InputRows){
 			Entry EntryToBeRemoved = new();
 			Label ItemsPerSecondLabel = new Label{VerticalTextAlignment = TextAlignment.Center};
@@ -152,7 +154,7 @@ public partial class MainPage : ContentPage
 					EntryToBeRemoved = (Entry)e;
 				}
 			}
-			int OwnQuantity = 1;
+			double OwnQuantity = 1;
 			if(ItemQuantities[row] != null){
 				OwnQuantity = ItemQuantities[row];
 			}
@@ -169,7 +171,7 @@ public partial class MainPage : ContentPage
 					EntryToBeRemoved = (Entry)e;
 				}
 			}
-			int OwnQuantity = 1;
+			double OwnQuantity = 1;
 			if(ItemQuantities[row] != null){
 				OwnQuantity = ItemQuantities[row];
 			}
@@ -190,7 +192,7 @@ public partial class MainPage : ContentPage
 					QuantityLabel.Text = $"{ItemQuantity}";
 					EntryToBeRemoved = (Entry)e;
 					try{
-						int ItemInt = int.Parse(ItemQuantity);
+						double ItemInt = double.Parse(ItemQuantity);
 						ItemQuantities.Add(row, ItemInt);
 					}
 					catch{
@@ -211,7 +213,7 @@ public partial class MainPage : ContentPage
 					QuantityLabel.Text = $"{ItemQuantity}";
 					EntryToBeRemoved = (Entry)e;
 					try{
-						int ItemInt = int.Parse(ItemQuantity);
+						double ItemInt = double.Parse(ItemQuantity);
 						ItemQuantities.Add(row, ItemInt);
 					}
 					catch{
@@ -392,6 +394,7 @@ public class ItemViewModels
 		this.ItemList.Add(new Item("Iron_ore"));
 		this.ItemList.Add(new Item("Iron_plate"));
 		this.ItemList.Add(new Item("Copper_ore"));
+		this.ItemList.Add(new Item("Copper_plate"));		
 		this.ItemList.Add(new Item("Uranium_ore"));
 		this.ItemList.Add(new Item("Raw_fish"));
 		this.ItemList.Add(new Item("Ice"));
