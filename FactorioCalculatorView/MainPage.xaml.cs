@@ -6,6 +6,8 @@ public partial class MainPage : ContentPage
 	private List<HorizontalStackLayout> InputRows = new();
 	private List<HorizontalStackLayout> OutputRows = new();
 	private Dictionary<HorizontalStackLayout, int> ItemQuantities = new();
+	private Dictionary<Entry, HorizontalStackLayout> ItemRowFromIPSEntry = new();
+	private int CraftSpeed = 1;
 	public MainPage()
 	{
 		InitializeComponent();
@@ -32,7 +34,7 @@ public partial class MainPage : ContentPage
 		if(OutputComboBox.SelectedValue != null){
 			String itemName = OutputComboBox.SelectedValue.ToString();
 			Label SelectedItem = new Label{VerticalTextAlignment = TextAlignment.Center};
-			HorizontalStackLayout AddedItemLayout = new HorizontalStackLayout();
+			HorizontalStackLayout AddedItemLayout = new HorizontalStackLayout{Spacing = 10.0};
 			Entry NumberOfItem = new Entry{Placeholder = "Quantity"};
 			String imagePath = @"C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\Item Icons\";
 			imagePath = imagePath + itemName + ".png";
@@ -95,8 +97,50 @@ public partial class MainPage : ContentPage
 	}
 
 	private void FinalizeRecipe(){
+		try{
+			CraftSpeed = int.Parse(CraftSpeedInput.Text);
+		}
+		catch{
+			DisplayAlert("Invalid Craft Speed", "Please use an Integer", "OK");
+		}
 		RemoveQuantityEntries();
+		AddVariableEntries();
 	}
+	private void AddVariableEntries(){
+		foreach(HorizontalStackLayout row in InputRows){
+			Entry VariableEntry = new Entry{Placeholder="Enter Items/s"};
+			VariableEntry.Completed += OnVariableEntryCompleted;
+			row.Add(VariableEntry);
+			ItemRowFromIPSEntry.Add(VariableEntry, row);
+		}
+	}
+
+    private void OnVariableEntryCompleted(object? sender, EventArgs eArgs)
+    {
+		Entry SendingEntry = (Entry)sender;
+		int VariableItemsPerSecond = 0;
+        try{
+			VariableItemsPerSecond = int.Parse(SendingEntry.Text);
+		}
+		catch{
+		}
+		int VariableQuantity = ItemQuantities[ItemRowFromIPSEntry[SendingEntry]];
+		foreach(HorizontalStackLayout row in InputRows){
+			Entry EntryToBeRemoved = new();
+			Label ItemsPerSecondLabel = new Label();
+			foreach(Element e in row.Children){
+				if(e.GetType() == typeof(Entry)){
+					EntryToBeRemoved = (Entry)e;
+				}
+			}
+			int OwnQuantity = ItemQuantities[row];
+			double ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
+			ItemsPerSecondLabel.Text = $"Items Per Second: {ItemsPerSecond}";
+			// DisplayAlert("Variable Values:", $"Own Quantity: {OwnQuantity} VariableQuantity: {VariableQuantity} Craft Speed:{CraftSpeed}, Variable Items Per Second:{VariableItemsPerSecond}, Items Per Second: {ItemsPerSecond}", "OK");
+			row.Children.Remove(EntryToBeRemoved);
+			row.Children.Add(ItemsPerSecondLabel);
+		}
+    }
 	private void RemoveQuantityEntries(){
 		foreach(HorizontalStackLayout row in InputRows){
 			Label QuantityLabel = new Label();
@@ -107,6 +151,13 @@ public partial class MainPage : ContentPage
 					String ItemQuantity = QuantityEntry.Text;
 					QuantityLabel.Text = $"{ItemQuantity}";
 					EntryToBeRemoved = (Entry)e;
+					try{
+						int ItemInt = int.Parse(ItemQuantity);
+						ItemQuantities.Add(row, ItemInt);
+					}
+					catch{
+						DisplayAlert("Invalid input", "Please only use integers", "OK");
+					}
 				}
 			}
 			row.Add(QuantityLabel);
@@ -121,12 +172,19 @@ public partial class MainPage : ContentPage
 					String ItemQuantity = QuantityEntry.Text;
 					QuantityLabel.Text = $"{ItemQuantity}";
 					EntryToBeRemoved = (Entry)e;
+					try{
+						int ItemInt = int.Parse(ItemQuantity);
+						ItemQuantities.Add(row, ItemInt);
+					}
+					catch{
+						DisplayAlert("Invalid input", "Please only use integers", "OK");
+					}
 				}
 			}
 			row.Add(QuantityLabel);
 			row.Remove(EntryToBeRemoved);
 		}
-		
+		Root.Children.Remove(CompleteRecipe);
 	}
 	
 }
