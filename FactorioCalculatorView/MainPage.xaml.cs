@@ -17,7 +17,7 @@ public partial class MainPage : ContentPage
 		if(InputComboBox.SelectedValue != null){
 			String itemName = InputComboBox.SelectedValue.ToString();
 			Label SelectedItem = new Label{VerticalTextAlignment = TextAlignment.Center};
-			HorizontalStackLayout AddedItemLayout = new HorizontalStackLayout();
+			HorizontalStackLayout AddedItemLayout = new HorizontalStackLayout{Spacing = 10.0};
 			Entry NumberOfItem = new Entry{Placeholder = "Quantity"};
 			String imagePath = @"C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\Item Icons\";
 			imagePath = imagePath + itemName + ".png";
@@ -113,6 +113,12 @@ public partial class MainPage : ContentPage
 			row.Add(VariableEntry);
 			ItemRowFromIPSEntry.Add(VariableEntry, row);
 		}
+		foreach(HorizontalStackLayout row in OutputRows){
+			Entry VariableEntry = new Entry{Placeholder="Enter Items/s"};
+			VariableEntry.Completed += OnVariableEntryCompleted;
+			row.Add(VariableEntry);
+			ItemRowFromIPSEntry.Add(VariableEntry, row);
+		}
 	}
 
     private void OnVariableEntryCompleted(object? sender, EventArgs eArgs)
@@ -136,7 +142,20 @@ public partial class MainPage : ContentPage
 			int OwnQuantity = ItemQuantities[row];
 			double ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
 			ItemsPerSecondLabel.Text = $"Items Per Second: {ItemsPerSecond}";
-			// DisplayAlert("Variable Values:", $"Own Quantity: {OwnQuantity} VariableQuantity: {VariableQuantity} Craft Speed:{CraftSpeed}, Variable Items Per Second:{VariableItemsPerSecond}, Items Per Second: {ItemsPerSecond}", "OK");
+			row.Children.Remove(EntryToBeRemoved);
+			row.Children.Add(ItemsPerSecondLabel);
+		}
+		foreach(HorizontalStackLayout row in OutputRows){
+			Entry EntryToBeRemoved = new();
+			Label ItemsPerSecondLabel = new Label();
+			foreach(Element e in row.Children){
+				if(e.GetType() == typeof(Entry)){
+					EntryToBeRemoved = (Entry)e;
+				}
+			}
+			int OwnQuantity = ItemQuantities[row];
+			double ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
+			ItemsPerSecondLabel.Text = $"Items Per Second: {ItemsPerSecond}";
 			row.Children.Remove(EntryToBeRemoved);
 			row.Children.Add(ItemsPerSecondLabel);
 		}
