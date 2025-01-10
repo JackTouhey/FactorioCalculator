@@ -17,8 +17,10 @@ public partial class MainPage : ContentPage
 
 	private void InputItemSelected(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e){
 		if(InputComboBox.SelectedValue != null){
-			String itemName = InputComboBox.SelectedValue.ToString();
-			Label SelectedItem = new Label{VerticalTextAlignment = TextAlignment.Center};
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+            String itemName = InputComboBox.SelectedValue.ToString();
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            Label SelectedItem = new Label{VerticalTextAlignment = TextAlignment.Center};
 			HorizontalStackLayout AddedItemLayout = new HorizontalStackLayout{Spacing = 10.0};
 			Entry NumberOfItem = new Entry{Placeholder = "Quantity"};
 			String imagePath = @"C:\Users\touheyjack\Documents\VisualStudio\FactorioCalculator\Item Icons\";
@@ -136,9 +138,25 @@ public partial class MainPage : ContentPage
 		}
 	}
 
+	private Boolean IsSenderFromInput(Entry entry){
+		Boolean SentFromInput = false;
+		foreach(HorizontalStackLayout row in InputRows){
+			foreach(Element e in row.Children){
+				if(e.GetType() == typeof(Entry)){
+					Entry InputEntry = (Entry)e;
+					if(InputEntry == entry){
+						SentFromInput = true;
+					}
+				}
+			}
+		}
+		return SentFromInput;
+	}
+
     private void OnVariableEntryCompleted(object? sender, EventArgs eArgs)
     {
 		Entry SendingEntry = (Entry)sender;
+		Boolean SentFromInput = IsSenderFromInput(SendingEntry);
 		double VariableItemsPerSecond = 0;
         try{
 			VariableItemsPerSecond = double.Parse(SendingEntry.Text);
@@ -158,7 +176,18 @@ public partial class MainPage : ContentPage
 			if(ItemQuantities[row] != null){
 				OwnQuantity = ItemQuantities[row];
 			}
-			double ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
+			double ItemsPerSecond = 1;
+			if(EntryToBeRemoved == SendingEntry){
+				ItemsPerSecond = VariableItemsPerSecond;
+			}
+			else{
+				if(SentFromInput){
+					ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)) * VariableItemsPerSecond;
+				}
+				else{
+					ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
+				}
+			}			
 			ItemsPerSecondLabel.Text = $"Items Per Second: {ItemsPerSecond}";
 			row.Children.Remove(EntryToBeRemoved);
 			row.Children.Add(ItemsPerSecondLabel);
@@ -175,7 +204,18 @@ public partial class MainPage : ContentPage
 			if(ItemQuantities[row] != null){
 				OwnQuantity = ItemQuantities[row];
 			}
-			double ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
+			double ItemsPerSecond = 1;
+			if(EntryToBeRemoved == SendingEntry){
+				ItemsPerSecond = VariableItemsPerSecond;
+			}
+			else{
+				if(SentFromInput){
+					ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
+				}
+				else{
+					ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)) * VariableItemsPerSecond;
+				}
+			}
 			ItemsPerSecondLabel.Text = $"Items Per Second: {ItemsPerSecond}";
 			row.Children.Remove(EntryToBeRemoved);
 			row.Children.Add(ItemsPerSecondLabel);
@@ -257,6 +297,7 @@ public class ItemViewModels
 		this.ItemList.Add(new Item("Express_underground_belt"));
 		this.ItemList.Add(new Item("Turbo_underground_belt"));
 		this.ItemList.Add(new Item("Splitter"));
+		this.ItemList.Add(new Item("Ice"));
 		this.ItemList.Add(new Item("Fast_splitter"));
 		this.ItemList.Add(new Item("Express_splitter"));
 		this.ItemList.Add(new Item("Turbo_splitter"));
@@ -397,7 +438,7 @@ public class ItemViewModels
 		this.ItemList.Add(new Item("Copper_plate"));		
 		this.ItemList.Add(new Item("Uranium_ore"));
 		this.ItemList.Add(new Item("Raw_fish"));
-		this.ItemList.Add(new Item("Ice"));
+
 		this.ItemList.Add(new Item("Water_barrel"));
 		this.ItemList.Add(new Item("Crude_oil_barrel"));
 		this.ItemList.Add(new Item("Petroleum_gas_barrel"));
