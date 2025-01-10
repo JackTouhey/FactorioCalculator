@@ -152,7 +152,6 @@ public partial class MainPage : ContentPage
 		}
 		return SentFromInput;
 	}
-
     private void OnVariableEntryCompleted(object? sender, EventArgs eArgs)
     {
 		Entry SendingEntry = (Entry)sender;
@@ -173,20 +172,18 @@ public partial class MainPage : ContentPage
 				}
 			}
 			double OwnQuantity = 1;
-			if(ItemQuantities[row] != null){
+			try{
+				if(ItemQuantities[row] != null){
 				OwnQuantity = ItemQuantities[row];
+				}
 			}
+			catch{}
 			double ItemsPerSecond = 1;
 			if(EntryToBeRemoved == SendingEntry){
 				ItemsPerSecond = VariableItemsPerSecond;
 			}
 			else{
-				if(SentFromInput){
-					ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)) * VariableItemsPerSecond;
-				}
-				else{
-					ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)/CraftSpeed) * VariableItemsPerSecond;
-				}
+				ItemsPerSecond = (((double)OwnQuantity/VariableQuantity)) * VariableItemsPerSecond;
 			}			
 			ItemsPerSecondLabel.Text = $"Items Per Second: {ItemsPerSecond}";
 			row.Children.Remove(EntryToBeRemoved);
@@ -201,9 +198,12 @@ public partial class MainPage : ContentPage
 				}
 			}
 			double OwnQuantity = 1;
-			if(ItemQuantities[row] != null){
+			try{
+				if(ItemQuantities[row] != null){
 				OwnQuantity = ItemQuantities[row];
+				}
 			}
+			catch{}
 			double ItemsPerSecond = 1;
 			if(EntryToBeRemoved == SendingEntry){
 				ItemsPerSecond = VariableItemsPerSecond;
@@ -298,6 +298,7 @@ public class ItemViewModels
 		this.ItemList.Add(new Item("Turbo_underground_belt"));
 		this.ItemList.Add(new Item("Splitter"));
 		this.ItemList.Add(new Item("Ice"));
+		this.ItemList.Add(new Item("Steel_plate"));
 		this.ItemList.Add(new Item("Fast_splitter"));
 		this.ItemList.Add(new Item("Express_splitter"));
 		this.ItemList.Add(new Item("Turbo_splitter"));
